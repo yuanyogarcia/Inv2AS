@@ -20,6 +20,7 @@ private boolean gana = false;
 private int cpIndex;
 private Baraja baraja;
 private int nJugadores;
+private int nOpcion;
 
 	public Monopoly(){}
 	
@@ -51,7 +52,7 @@ private int nJugadores;
 		cJugador = new Jugador(); 
 		cJugador = listaJugadores.get(cpIndex);
 		
-		
+		//Este bloque mantiene el juego en ejecución hasta que uno de los jugadores gana
 		while(gana == false){ 
 			
 			turnoFase1(); 
@@ -73,8 +74,67 @@ private int nJugadores;
 		
 	}
 	
+	// La Fase 1 del turno presenta las opciones que tiene el jugador:
+	// - Abandonar partida
+	// - Ver propiedades
+	// - Comprar casas
+	// - Deshipotecar
+	// - Negociar
+	// - Tirar dado
 	public void turnoFase1(){
+		try {Thread.sleep(400);} catch (InterruptedException e) {e.printStackTrace();}
+	
+		if(cJugador.obtenerTiempoCarcel()>0){
+			cJugador.ponerTiempoCarcel(cJugador.obtenerTiempoCarcel()-1);
+			JOptionPane.showMessageDialog(null, cJugador.obtenerNombre() + ", you're locked In!", "You're still in jail!", JOptionPane.INFORMATION_MESSAGE);
+			if(cJugador.obtenerjfCuenta()>0){
+				JOptionPane.showMessageDialog(null, "Get out of jail free!", "Use you're carta!", JOptionPane.INFORMATION_MESSAGE);
+				cJugador.ponerjfCuenta(cJugador.obtenerjfCuenta()-1);
+			}else{return;}
+		}
+		
+		Scanner sc = new Scanner(System.in); 
+		System.out.println("Escoge una opción: 1. Abandonar partida; 2. Ver propiedades; 3. Comprar casas; 4. Deshipotecar; 5. Hipotecar; 6. Negociar; 7. Tirar dado");
+		nOpcion = sc.nextInt();
+		
+		if(nOpcion == 7){ //Tirar dado
+			cJugador.tirar(); 
+			System.out.println("Has sacado: " + cJugador.obtenerRCuenta());
+			cJugador.mover();
+		}else if(nOpcion == 6){ //Negociar
 
+
+		}else if(nOpcion == 5){//Hipotecar
+
+		}
+		else if(nOpcion == 4){//Deshipotecar
+
+		}
+		else if(nOpcion == 3){//Comprar casas
+
+		}
+		else if(nOpcion == 2){//Ver propiedades
+
+	
+		}else if (nOpcion == 1){//Abandonar
+			System.out.println("Has abandonado la partida!");
+			System.exit(0); 
+		}
+		
+		if(cJugador.obtenerDado1() == cJugador.obtenerDado2()){     
+			cJugador.ponerDCuenta(cJugador.obtenerDCuenta() + 1);  
+			if(cJugador.obtenerDCuenta() == 3){ 
+		        JOptionPane.showMessageDialog(null, "Go To Jail!", "You have rolled three doubles in a row - go to jail.", JOptionPane.INFORMATION_MESSAGE);
+		        cJugador.moverAIdentidad(11);
+		        cJugador.ponerDCuenta(0);
+		        cJugador.ponerTiempoCarcel(3);
+		        return;
+		    }
+			turnoFase2(); //starts part two of ones turn
+	        JOptionPane.showMessageDialog(null, "Roll again!", "You rolled doubles!", JOptionPane.INFORMATION_MESSAGE);
+	        turnoFase1();
+	      
+	    }else{cJugador.ponerDCuenta(0);}    
 		
 	}
 	
