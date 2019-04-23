@@ -43,6 +43,9 @@ private int nJugadores;
 		tablero = new ListaTablero();
 		baraja = new Baraja(); 
 		
+		for(int i = 0; i<nJugadores; i++){ //Se anaden los jugadores a la lista de jugadores de la partida
+			listaJugadores.add(i, new Jugador("Jugador"+(i+1)));
+		} 
 		
 		cpIndex = 0;  
 		cJugador = new Jugador(); 
