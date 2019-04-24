@@ -99,7 +99,7 @@ private int nOpcion;
 		
 		if(nOpcion == 7){ //Tirar dado
 			cJugador.tirar(); 
-			System.out.println("Has sacado: " + cJugador.obtenerRCuenta());
+			 System.out.println("Has sacado: " + cJugador.obtenerRCuenta());
 			cJugador.mover();
 		}else if(nOpcion == 6){ //Negociar
 
