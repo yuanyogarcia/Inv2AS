@@ -17,7 +17,7 @@ public class Jugador {
 	private int nDado1, dado2;
 	private boolean enDado2 = false;
 	private int dadoTotal;
-
+	private Casilla nodoActual = new Casilla();
 	private int tiempoCarcel;
 
 	// Objeto que representa cada jugador en el juego
@@ -38,7 +38,12 @@ public class Jugador {
 	// Mueve al jugador a través de la la lista de casillas
 	public void mover() {
 
-
+		for (int j = 0; j < this.obtenerRCuenta(); j++) {
+			this.ponerNodoActual(this.obtenerCNode().obtenerSiguiente());
+			if (nodoActual.obtenerPosicion() == 1) {
+				this.ponerMCuenta(this.obtenerMCuenta() + 200);
+			}
+		}
 	}
 
 	public void moverAIdentidad(int moverAIdentidad) {
@@ -123,8 +128,7 @@ public class Jugador {
 	public void ponerDado2(int nDado2) {
 		this.dado2 = nDado2;
 	}
-
-
+	
 	public int obtenerjfCuenta() {
 		return jfCuenta;
 	}
@@ -141,4 +145,11 @@ public class Jugador {
 		return tiempoCarcel;
 	}
 
+	public Casilla obtenerCNode() {
+		return nodoActual;
+	}
+	
+	public void ponerNodoActual(Casilla nCNode) {
+		this.nodoActual = nCNode;
+	}
 }
