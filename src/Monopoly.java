@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Monopoly {
 
-//Declaracion de variables
+//Declaracion de 
 private ArrayList<Jugador> listaJugadores;	
 private Jugador cJugador;
 private ListaTablero tablero;
