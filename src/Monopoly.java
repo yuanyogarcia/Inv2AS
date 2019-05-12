@@ -86,9 +86,10 @@ private int nOpcion;
 	
 		if(cJugador.obtenerTiempoCarcel()>0){
 			cJugador.ponerTiempoCarcel(cJugador.obtenerTiempoCarcel()-1);
-			JOptionPane.showMessageDialog(null, cJugador.obtenerNombre() + ", Estas encerrado!", "Sigues en la carcel!", JOptionPane.INFORMATION_MESSAGE);
+			
+			System.out.println(cJugador.obtenerNombre() + ", Estas encerrado!", "Sigues en la carcel!");
 			if(cJugador.obtenerjfCuenta()>0){
-				JOptionPane.showMessageDialog(null, "Salir de la carcel!", "Usa tu carta!", JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Salir de la carcel!");
 				cJugador.ponerjfCuenta(cJugador.obtenerjfCuenta()-1);
 			}else{return;}
 		}
@@ -99,10 +100,61 @@ private int nOpcion;
 		
 		if(nOpcion == 7){ //Tirar dado
 			cJugador.tirar(); 
-			 System.out.println("Has sacado: " + cJugador.obtenerRCuenta());
+			System.out.println("Has sacado: " + cJugador.obtenerRCuenta());
 			cJugador.mover();
+			
 		}else if(nOpcion == 6){ //Negociar
-
+			if(cJugador.obtenerPropPropias().size() < 1){	
+			System.out.println("Lo siento, no tienes propiedades...");
+			}
+			turnoFase1();} //En el caso de no tener propiedades vuelvos al inicio
+			else{
+			String[] names = new String[listaJugadores.size()];
+			for(int i = 0; i < names.length; i++){ 
+				names[i] = listaJugadores.get(i).obtenerNombre(); //Realiza una matriz de nombres 
+			}
+			System.out.println("Con quien quieres negociar?");
+			Jugador trader2 = sc.nextLine();
+			if(trader2 == cJugador){turnoFase1();} //si te seleccionas a ti mismo vuelves al inicio
+			
+			if(trader2.obtenerPropPropias().size() < 1){ 
+				System.out.println("Este jugador no tiene propiedades");
+				turnoFase1(); //Notifica si el jugador seleccionado no tiene propiedades.
+			}
+			else{
+			String[] t1props = new String[cJugador.obtenerPropPropias().size()];
+			for(int i = 0; i < t1props.length; i++){ 
+				t1props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
+			}			///Que propiedad queremos ofrecer
+			
+			
+			PropiedadCasilla give = cJugador.obtenerPropPropias().get(JOptionPane.showOptionDialog (null, "Que propiedad quiere ofrecer?", "Negociar", 0, JOptionPane.QUESTION_MESSAGE, null, t1props, null));
+			
+			String[] t2props = new String[trader2.obtenerPropPropias().size()];
+			for(int i = 0; i < t2props.length; i++){
+				t2props[i] = trader2.obtenerPropPropias().get(i).obtenerNombre();
+				System.out.println(t2props[i]);
+			}		//Pregunta que propiedad del jugador seleccionado quieres
+			System.out.println("Que propiedad quieres comprar?");
+			PropiedadCasilla take = sc.nextLine();
+		
+			//asks if you want to include a money offer
+			int cash = Integer.parseInt(JOptionPane.showInputDialog("Cuanto dinero te gustaria ofrecer?"));
+			
+			String[] yesnoOp = {"Si", "No"};  //presents an offer to the other jugador
+			int yesno = JOptionPane.showOptionDialog (null, "Aceptas esta oferta \n\n" + give.obtenerNombre() + " y " + Integer.toString(cash) + " por " + take.obtenerNombre() + "?" , trader2.obtenerNombre() + " - Nueva oferta!", 0, JOptionPane.QUESTION_MESSAGE, null, yesnoOp, null);
+			if(yesno == 1){JOptionPane.showMessageDialog(null, "La oferta ha sido rechazada", "Rechazada!", JOptionPane.INFORMATION_MESSAGE);}
+			else{JOptionPane.showMessageDialog(null, "La oferta ha sido aceptada!", "Aceptada!", JOptionPane.INFORMATION_MESSAGE);
+			
+			//if accept, enables trade
+			cJugador.negociar(trader2, give, take, cash);
+			
+			refrescarTodo(); //refreshes
+			}
+			
+			turnoFase1(); //returns to top
+			}
+			}
 
 		}else if(nOpcion == 5){//Hipotecar
 
@@ -124,7 +176,7 @@ private int nOpcion;
 		if(cJugador.obtenerDado1() == cJugador.obtenerDado2()){     
 			cJugador.ponerDCuenta(cJugador.obtenerDCuenta() + 1);  
 			if(cJugador.obtenerDCuenta() == 3){ 
-		        JOptionPane.showMessageDialog(null, "Vas a la carcel!", "Has sacado tres dobles seguidos - a la carcel.", JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Has sacado tres dobles seguidos - a la carcel.");
 		        cJugador.moverAIdentidad(11);
 		        cJugador.ponerDCuenta(0);
 		        cJugador.ponerTiempoCarcel(3);
