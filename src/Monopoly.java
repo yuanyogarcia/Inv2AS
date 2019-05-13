@@ -138,7 +138,7 @@ private int nOpcion;
 			System.out.println("Que propiedad quieres comprar?");
 			PropiedadCasilla take = sc.nextLine();
 		
-			//asks if you want to include a money offer
+			
 			int cash = Integer.parseInt(JOptionPane.showInputDialog("Cuanto dinero te gustaria ofrecer?"));
 			
 			String[] yesnoOp = {"Si", "No"};  //presents an offer to the other jugador
@@ -146,13 +146,13 @@ private int nOpcion;
 			if(yesno == 1){JOptionPane.showMessageDialog(null, "La oferta ha sido rechazada", "Rechazada!", JOptionPane.INFORMATION_MESSAGE);}
 			else{JOptionPane.showMessageDialog(null, "La oferta ha sido aceptada!", "Aceptada!", JOptionPane.INFORMATION_MESSAGE);
 			
-			//if accept, enables trade
+			
 			cJugador.negociar(trader2, give, take, cash);
 			
-			refrescarTodo(); //refreshes
+			refrescarTodo(); 
 			}
 			
-			turnoFase1(); //returns to top
+			turnoFase1(); 
 			}
 			}
 
