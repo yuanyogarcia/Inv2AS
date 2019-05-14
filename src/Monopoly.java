@@ -1,6 +1,6 @@
 /*
- Monopoly para cliente Inv2AS”
- Proyectos Informáticos II - 2019
+ Monopoly para cliente Inv2ASâ€
+ Proyectos InformÃ¡ticos II - 2019
  Grupo C (Juan Jose Garcia, Manuel Angel Mateos, Jaime Ojeda)
  */
 
@@ -52,7 +52,7 @@ private int nOpcion;
 		cJugador = new Jugador(); 
 		cJugador = listaJugadores.get(cpIndex);
 		
-		//Este bloque mantiene el juego en ejecución hasta que uno de los jugadores gana
+		//Este bloque mantiene el juego en ejecuciÃ³n hasta que uno de los jugadores gana
 		while(gana == false){ 
 			
 			turnoFase1(); 
@@ -95,7 +95,7 @@ private int nOpcion;
 		}
 		
 		Scanner sc = new Scanner(System.in); 
-		System.out.println("Escoge una opción: 1. Abandonar partida; 2. Ver propiedades; 3. Comprar casas; 4. Deshipotecar; 5. Hipotecar; 6. Negociar; 7. Tirar dado");
+		System.out.println("Escoge una opciÃ³n: 1. Abandonar partida; 2. Ver propiedades; 3. Comprar casas; 4. Deshipotecar; 5. Hipotecar; 6. Negociar; 7. Tirar dado");
 		nOpcion = sc.nextInt();
 		
 		if(nOpcion == 7){ //Tirar dado
@@ -138,13 +138,15 @@ private int nOpcion;
 			System.out.println("Que propiedad quieres comprar?");
 			PropiedadCasilla take = sc.nextLine();
 		
+			System.out.println("Cuanto dinero te gustaria ofrecer?");
+			int cash = sc.nextInt();
 			
-			int cash = Integer.parseInt(JOptionPane.showInputDialog("Cuanto dinero te gustaria ofrecer?"));
-			
-			String[] yesnoOp = {"Si", "No"};  //presents an offer to the other jugador
-			int yesno = JOptionPane.showOptionDialog (null, "Aceptas esta oferta \n\n" + give.obtenerNombre() + " y " + Integer.toString(cash) + " por " + take.obtenerNombre() + "?" , trader2.obtenerNombre() + " - Nueva oferta!", 0, JOptionPane.QUESTION_MESSAGE, null, yesnoOp, null);
-			if(yesno == 1){JOptionPane.showMessageDialog(null, "La oferta ha sido rechazada", "Rechazada!", JOptionPane.INFORMATION_MESSAGE);}
-			else{JOptionPane.showMessageDialog(null, "La oferta ha sido aceptada!", "Aceptada!", JOptionPane.INFORMATION_MESSAGE);
+			String[] yesnoOp = {"Si", "No"};  
+			System.out.println("Aceptas esta oferta Si = 1 No = 0");
+			int yesno = sc.nextInt();
+			if(yesno == 1){
+				System.out.println("La oferta ha sido rechazada\", \"Rechazada!");}
+			else{System.out.println("La oferta ha sido aceptada\", \"Aceptada!"));
 			
 			
 			cJugador.negociar(trader2, give, take, cash);
@@ -182,8 +184,8 @@ private int nOpcion;
 		        cJugador.ponerTiempoCarcel(3);
 		        return;
 		    }
-			turnoFase2(); //starts part two of ones turn
-	        JOptionPane.showMessageDialog(null, "Tira de nuevo!", "Has sacado dobles!", JOptionPane.INFORMATION_MESSAGE);
+			turnoFase2(); 
+			System.out.println("Tira de nuevo!", "Has sacado dobles!");
 	        turnoFase1();
 	      
 	    }else{cJugador.ponerDCuenta(0);}    
@@ -204,19 +206,20 @@ private int nOpcion;
 		switch(landed.obtenerTipo()){
 		case 'p':   
 			if(((PropiedadCasilla) landed).obtenerPropiedad() == null){
-				String[] yesnoOp = {"SI", "No"};
 				String details = "Nombre: " + landed.obtenerNombre() + "\n" + "Tipo: " + ((PropiedadCasilla) landed).obtenerColor() + "\n" + "Alquiler: " + ((PropiedadCasilla) landed).obtenerAlquiler() + "\n" + "Precio: " + ((PropiedadCasilla) landed).obtenerPrecio();
-				int yesno = JOptionPane.showOptionDialog (null, details, "La quieres comprar?", 0, JOptionPane.QUESTION_MESSAGE, null, yesnoOp, null);
-					if(yesno == 0){
+				System.out.println(details);
+				System.out.println("Aceptas esta oferta Si = 1 No = 0");
+				int yesno = sc.nextInt();
+				if(yesno == 0){
 						cJugador.comprar((PropiedadCasilla) landed);
-						JOptionPane.showMessageDialog(null, "Ahora la tienes " + landed.obtenerNombre(), "Propiedad comprar!", JOptionPane.INFORMATION_MESSAGE);}
+						System.out.println("Ahora la tienes " + landed.obtenerNombre());}
 					else{}
 					
 			}else if(((PropiedadCasilla) landed).obtenerPropiedad() == cJugador){
 				
 			}else{Jugador pReference = ((PropiedadCasilla) landed).obtenerPropiedad();
 				int payed = cJugador.pagarAlquiler(pReference, (PropiedadCasilla) landed);
-				JOptionPane.showMessageDialog(null, "Has pagado " + pReference.obtenerNombre() + " un alquiler " + payed + " euros." , "Alquiler pagado!", JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Has pagado " + pReference.obtenerNombre() + " un alquiler " + payed + " euros.");
 			}
 			
 			refrescarTodo();
@@ -239,70 +242,70 @@ private int nOpcion;
 			break;
 		case 'u':  
 			if(((PropiedadCasilla) landed).obtenerPropiedad() == null){
-				String[] yesnoOp = {"Si", "No"};
 				String details = "Nombre: " + landed.obtenerNombre() + "\n" + "Tipo: " + ((PropiedadCasilla) landed).obtenerColor() + "\n" + "Alquiler: " + ((PropiedadCasilla) landed).obtenerAlquiler() + "\n" + "Precio: " + ((PropiedadCasilla) landed).obtenerPrecio();
-				int yesno = JOptionPane.showOptionDialog (null, details, "La quieres comprar?", 0, JOptionPane.QUESTION_MESSAGE, null, yesnoOp, null);
+				System.out.println("La quieres comprar? Si = 1 No = 0");
+				System.out.println(details);
+				int yesno = sc.nextInt();				
 					if(yesno == 0){
 						cJugador.comprar((PropiedadCasilla) landed);
-						JOptionPane.showMessageDialog(null, "Ahora la tienes " + landed.obtenerNombre(), "Propiedad comprada!", JOptionPane.INFORMATION_MESSAGE);}
+						System.out.println("Ahora la tienes " + landed.obtenerNombre());}
 					else{}
 					
 			}else if(((PropiedadCasilla) landed).obtenerPropiedad() == cJugador){
 				
 			}else{Jugador pReference = ((PropiedadCasilla) landed).obtenerPropiedad();
 				int payed = cJugador.pagarAlquiler(pReference, (PropiedadCasilla) landed);
-				JOptionPane.showMessageDialog(null, "Has pagado " + pReference.obtenerNombre() + " un alquiler de " + payed + " euros." , "Alquiler pagado!", JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Has pagado " + pReference.obtenerNombre() + " un alquiler de " + payed + " euros.");
 			}
 			refrescarTodo();
 			break;
 		case 'r':  
 			if(((PropiedadCasilla) landed).obtenerPropiedad() == null){
-				String[] yesnoOp = {"Si", "No"};
 				String details = "Nombre: " + landed.obtenerNombre() + "\n" + "Tipo: " + ((PropiedadCasilla) landed).obtenerColor() + "\n" + "Alquiler: " + ((PropiedadCasilla) landed).obtenerAlquiler() + "\n" + "Precio: " + ((PropiedadCasilla) landed).obtenerPrecio();
-				int yesno = JOptionPane.showOptionDialog (null, details, "Quieres comprarla?", 0, JOptionPane.QUESTION_MESSAGE, null, yesnoOp, null);
-					if(yesno == 0){
+				System.out.println("La quieres comprar? Si = 1 No = 0");
+				System.out.println(details);					if(yesno == 0){
 						cJugador.comprar((PropiedadCasilla) landed);
-						JOptionPane.showMessageDialog(null, "Ahora la tienes " + landed.obtenerNombre(), "Propiedad comprada!", JOptionPane.INFORMATION_MESSAGE);}
+						System.out.println("Ahora la tienes " + landed.obtenerNombre());}
 					else{}
 					
 			}else if(((PropiedadCasilla) landed).obtenerPropiedad() == cJugador){
 				
 			}else{Jugador pReference = ((PropiedadCasilla) landed).obtenerPropiedad();
 				int payed = cJugador.pagarAlquiler(pReference, (PropiedadCasilla) landed);
-				JOptionPane.showMessageDialog(null, "Has pagado " + pReference.obtenerNombre() + " un alquiler de " + payed + " euros." , "Alquiler pagado!", JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Has pagado " + pReference.obtenerNombre() + " un alquiler de " + payed + " euros.");
 			}
 			
 			refrescarTodo();
 			break;
 		case 't': 
-			JOptionPane.showMessageDialog(null, "Has caido en el impuesto al alquiler: paga 200€ al banco", "Impuesto alquiler", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Has caido en el impuesto al alquiler: paga 200â‚¬ al banco");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() - 200);
 			refrescarTodo();
 			
 			break;
 		case 'l': 
-			JOptionPane.showMessageDialog(null, "Has caido en el impuesto de lujo - paga 75€ al banco", "Impuesto de lujo!", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println( "Has caido en el impuesto de lujo - paga 75â‚¬ al banco");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() - 75);
 		
 			refrescarTodo();
 			
 			break;
 		case 'j': 
-			JOptionPane.showMessageDialog(null, "Estas visitando la carcel.", "Carcel", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Estas visitando la carcel.");
 			break;
 		case 'g': 
-			JOptionPane.showMessageDialog(null, "Casilla de salida - Ganas 200€", "Casilla de salida", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Casilla de salida - Ganas 200â‚¬");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() + 200);
 			
 			refrescarTodo();
 			
 			break;
 		case 'f':
-			JOptionPane.showMessageDialog(null, "Está en el estacionamiento gratuito - descanse.", "Estacionamiento gratuito", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("EstÃ¡ en el estacionamiento gratuito - descanse.");
 			refrescarTodo();
 			break;
 		case 'w':  
-			JOptionPane.showMessageDialog(null, "Vas a la carcel\nDO No puedes salir!", "A la carcel", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Vas a la carcel\n No puedes salir!");
 			cJugador.moverAIdentidad(11);
 			cJugador.ponerTiempoCarcel(3);
 			refrescarTodo();
@@ -312,19 +315,13 @@ private int nOpcion;
 	public void refrescarTodo(){
 		oeste.refreshList(listaJugadores.get(0));
 		este.refreshList(listaJugadores.get(1));
-		oeste.repaint();
-		este.repaint();
-		
+
 		if(listaJugadores.size() > 2){					
 		norte.refreshList(listaJugadores.get(2));
-		norte.repaint();
 		}
 		if(listaJugadores.size() > 3){
 		sur.refreshList(listaJugadores.get(3));
-		sur.repaint();
 		}
-		
-		centro.repaint();
 
 	}
 	
