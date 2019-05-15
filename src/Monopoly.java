@@ -1,6 +1,6 @@
 /*
- Monopoly para cliente Inv2AS”
- Proyectos Informáticos II - 2019
+ Monopoly para cliente Inv2ASâ€�
+ Proyectos InformÃ¡ticos II - 2019
  Grupo C (Juan Jose Garcia, Manuel Angel Mateos, Jaime Ojeda)
  */
 
@@ -52,7 +52,7 @@ private int nOpcion;
 		cJugador = new Jugador(); 
 		cJugador = listaJugadores.get(cpIndex);
 		
-		//Este bloque mantiene el juego en ejecución hasta que uno de los jugadores gana
+		//Este bloque mantiene el juego en ejecuciÃ³n hasta que uno de los jugadores gana
 		while(gana == false){ 
 			
 			turnoFase1(); 
@@ -86,8 +86,8 @@ private int nOpcion;
 	
 		if(cJugador.obtenerTiempoCarcel()>0){
 			cJugador.ponerTiempoCarcel(cJugador.obtenerTiempoCarcel()-1);
-			
-			System.out.println(cJugador.obtenerNombre() + ", Estas encerrado!", "Sigues en la carcel!");
+			System.out.println("Por favor, introduce entre 2 y 8 jugadores");
+			System.out.println(cJugador.obtenerNombre() + ", Estas encerrado! Sigues en la carcel!");
 			if(cJugador.obtenerjfCuenta()>0){
 				System.out.println("Salir de la carcel!");
 				cJugador.ponerjfCuenta(cJugador.obtenerjfCuenta()-1);
@@ -114,7 +114,8 @@ private int nOpcion;
 				names[i] = listaJugadores.get(i).obtenerNombre(); //Realiza una matriz de nombres 
 			}
 			System.out.println("Con quien quieres negociar?");
-			Jugador trader2 = sc.nextLine();
+		    Jugador trader2 = listaJugadores.get(sc.nextInt());
+
 			if(trader2 == cJugador){turnoFase1();} //si te seleccionas a ti mismo vuelves al inicio
 			
 			if(trader2.obtenerPropPropias().size() < 1){ 
@@ -278,13 +279,13 @@ private int nOpcion;
 			refrescarTodo();
 			break;
 		case 't': 
-			System.out.println("Has caido en el impuesto al alquiler: paga 200€ al banco");
+			System.out.println("Has caido en el impuesto al alquiler: paga 200â‚¬ al banco");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() - 200);
 			refrescarTodo();
 			
 			break;
 		case 'l': 
-			System.out.println( "Has caido en el impuesto de lujo - paga 75€ al banco");
+			System.out.println( "Has caido en el impuesto de lujo - paga 75â‚¬ al banco");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() - 75);
 		
 			refrescarTodo();
@@ -294,14 +295,14 @@ private int nOpcion;
 			System.out.println("Estas visitando la carcel.");
 			break;
 		case 'g': 
-			System.out.println("Casilla de salida - Ganas 200€");
+			System.out.println("Casilla de salida - Ganas 200â‚¬");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() + 200);
 			
 			refrescarTodo();
 			
 			break;
 		case 'f':
-			System.out.println("Está en el estacionamiento gratuito - descanse.");
+			System.out.println("EstÃ¡ en el estacionamiento gratuito - descanse.");
 			refrescarTodo();
 			break;
 		case 'w':  
