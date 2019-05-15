@@ -18,6 +18,7 @@ public class Jugador {
 	private boolean enDado2 = false;
 	private int dadoTotal;
 	private Casilla nodoActual = new Casilla();
+	private ArrayList<PropiedadCasilla> propPropias;
 	private int tiempoCarcel;
 
 	// Objeto que representa cada jugador en el juego
@@ -131,6 +132,10 @@ public class Jugador {
 	
 	public int obtenerjfCuenta() {
 		return jfCuenta;
+	}
+	
+	public ArrayList<PropiedadCasilla> obtenerPropPropias() {
+		return propPropias;
 	}
 
 	public void ponerjfCuenta(int jfCuenta) {
