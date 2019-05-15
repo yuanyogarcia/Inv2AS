@@ -106,7 +106,7 @@ private int nOpcion;
 		}else if(nOpcion == 6){ //Negociar
 			if(cJugador.obtenerPropPropias().size() < 1){
 						System.out.println("Lo siento, no tienes propiedades...");
-						turnoFase1();} //En el caso de no tener propiedades vuelvos al inicio
+						turnoFase1(); //En el caso de no tener propiedades vuelvos al inicio
 			} 
 			else{
 			String[] names = new String[listaJugadores.size()];
@@ -157,8 +157,8 @@ private int nOpcion;
 			
 			turnoFase1(); 
 			}
-			}
 			
+	}	
 		}else if(nOpcion == 5){//Hipotecar
 
 		}
