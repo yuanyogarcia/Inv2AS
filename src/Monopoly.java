@@ -104,10 +104,10 @@ private int nOpcion;
 			cJugador.mover();
 			
 		}else if(nOpcion == 6){ //Negociar
-			if(cJugador.obtenerPropPropias().size() < 1){	
-			System.out.println("Lo siento, no tienes propiedades...");
-			}
-			turnoFase1();} //En el caso de no tener propiedades vuelvos al inicio
+			if(cJugador.obtenerPropPropias().size() < 1){
+						System.out.println("Lo siento, no tienes propiedades...");
+						turnoFase1();} //En el caso de no tener propiedades vuelvos al inicio
+			} 
 			else{
 			String[] names = new String[listaJugadores.size()];
 			for(int i = 0; i < names.length; i++){ 
@@ -158,7 +158,7 @@ private int nOpcion;
 			turnoFase1(); 
 			}
 			}
-
+			
 		}else if(nOpcion == 5){//Hipotecar
 
 		}
