@@ -8,14 +8,30 @@ import java.io.*;
 import java.util.Scanner;
 
 public class ListaTablero {
-  
+
+private Casilla primero;
 
   	public ListaTablero() {	
   		this.generarTablero(); 
+  		primero = null;	
   	}
   
   	public void generarTablero(){
 
   	}
+  	
+	public void anadirPrimera() { 
+	
+  	}
+
+  	public void anadirUltima() {
+  		
+  	}
+  	
+  	public Casilla obtenerPrimera() {	//nos devuelve al principio
+		return primero;
+	}	
+		
+
   	
 }

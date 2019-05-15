@@ -137,7 +137,7 @@ private int nOpcion;
 				System.out.println(t2props[i]);
 			}		//Pregunta que propiedad del jugador seleccionado quieres
 			System.out.println("Que propiedad quieres comprar?");
-			PropiedadCasilla take = sc.nextLine();
+			PropiedadCasilla take = trader2.obtenerPropPropias().get(sc.nextInt());
 		
 			System.out.println("Cuanto dinero te gustaria ofrecer?");
 			int cash = sc.nextInt();
@@ -147,10 +147,11 @@ private int nOpcion;
 			int yesno = sc.nextInt();
 			if(yesno == 1){
 				System.out.println("La oferta ha sido rechazada\", \"Rechazada!");}
-			else{System.out.println("La oferta ha sido aceptada\", \"Aceptada!"));
+			else{System.out.println("La oferta ha sido aceptada\", \"Aceptada!");
 			
 			
-			cJugador.negociar(trader2, give, take, cash);
+			//cJugador.negociar(trader2, give, take, cash);
+			cJugador.negociar(trader2, cash);
 			
 			refrescarTodo(); 
 			}
@@ -186,7 +187,7 @@ private int nOpcion;
 		        return;
 		    }
 			turnoFase2(); 
-			System.out.println("Tira de nuevo!", "Has sacado dobles!");
+			System.out.println("Tira de nuevo! - Has sacado dobles!");
 	        turnoFase1();
 	      
 	    }else{cJugador.ponerDCuenta(0);}    
@@ -194,7 +195,7 @@ private int nOpcion;
 	}
 	
 	public void turnoFase2(){ 
-		
+		Scanner sc = new Scanner(System.in); 
 		if(cJugador.obtenerTiempoCarcel()>0){
 			return;
 		}
@@ -264,7 +265,9 @@ private int nOpcion;
 			if(((PropiedadCasilla) landed).obtenerPropiedad() == null){
 				String details = "Nombre: " + landed.obtenerNombre() + "\n" + "Tipo: " + ((PropiedadCasilla) landed).obtenerColor() + "\n" + "Alquiler: " + ((PropiedadCasilla) landed).obtenerAlquiler() + "\n" + "Precio: " + ((PropiedadCasilla) landed).obtenerPrecio();
 				System.out.println("La quieres comprar? Si = 1 No = 0");
-				System.out.println(details);					if(yesno == 0){
+				System.out.println(details);					
+				int yesno = sc.nextInt();	
+				if(yesno == 0){
 						cJugador.comprar((PropiedadCasilla) landed);
 						System.out.println("Ahora la tienes " + landed.obtenerNombre());}
 					else{}
@@ -310,20 +313,13 @@ private int nOpcion;
 			cJugador.moverAIdentidad(11);
 			cJugador.ponerTiempoCarcel(3);
 			refrescarTodo();
-			break;
+			break;}
 	}
 	
 	public void refrescarTodo(){
-		oeste.refreshList(listaJugadores.get(0));
-		este.refreshList(listaJugadores.get(1));
+		
 
-		if(listaJugadores.size() > 2){					
-		norte.refreshList(listaJugadores.get(2));
-		}
-		if(listaJugadores.size() > 3){
-		sur.refreshList(listaJugadores.get(3));
-		}
-
+	
 	}
 	
 }

@@ -145,6 +145,141 @@ public class Jugador {
 	public void ponerTiempoCarcel(int tiempoCarcel) {
 		this.tiempoCarcel = tiempoCarcel;
 	}
+	
+	public void comprar(PropiedadCasilla landed) {
+		this.mCuenta -= Integer.parseInt(landed.obtenerPrecio());
+		landed.ponerPropiedad(this);
+		this.propPropias.add(landed);
+	}	
+	
+	public boolean tieneMonopoly(PropiedadCasilla aterrizado) {
+		boolean tiene;
+		String colorTemp = aterrizado.obtenerColor();
+		char caracterColor = colorTemp.charAt(0);
+		int contador = 0;
+
+		switch (caracterColor) {
+		case 'B':
+			for (int i = 0; i < this.propPropias.size(); i++) {
+
+				if (this.propPropias.get(i).obtenerColor().charAt(0) == caracterColor) {
+					contador++;
+				} else {
+				}
+			}
+			contador -= 1;
+			if (contador == 2) {
+				tiene = true;
+			} else {
+				tiene = false;
+			}
+			break;
+		case 'D':
+			for (int i = 0; i < this.propPropias.size(); i++) {
+
+				if (this.propPropias.get(i).obtenerColor().charAt(0) == caracterColor) {
+					contador++;
+				} else {
+				}
+			}
+			contador -= 1;
+			if (contador == 2) {
+				tiene = true;
+			} else {
+				tiene = false;
+			}
+			break;
+		case 'R':
+			for (int i = 0; i < this.propPropias.size(); i++) {
+
+				if (this.propPropias.get(i).obtenerColor().charAt(0) == caracterColor) {
+					contador++;
+				} else {
+				}
+			}
+			contador -= 1;
+			if (contador == 4) {
+				tiene = true;
+			} else {
+				tiene = false;
+			}
+			break;
+		case 'U':
+			for (int i = 0; i < this.propPropias.size(); i++) {
+				if (this.propPropias.get(i).obtenerColor().charAt(0) == caracterColor) {
+					contador++;
+				} else {
+				}
+			}
+			contador -= 1;
+			if (contador == 2) {
+				tiene = true;
+			} else {
+				tiene = false;
+			}
+			break;
+		default:
+			for (int i = 0; i < this.propPropias.size(); i++) {
+				if (this.propPropias.get(i).obtenerColor().charAt(0) == caracterColor) {
+					contador++;
+				} else {
+				}
+			}
+			contador -= 1;
+			if (contador == 3) {
+				tiene = true;
+			} else {
+				tiene = false;
+			}
+			break;
+
+		}
+
+		return tiene;
+	}
+	public int pagarAlquiler(Jugador propietario, PropiedadCasilla aterrizado) {
+		int alquiler = Integer.parseInt(aterrizado.obtenerAlquiler());
+		int nAlquiler = 0;
+
+		if (aterrizado.obtenerTipo() == 'p') {
+			int hAlquiler = Integer.parseInt(aterrizado.obtenerAquilerUnaCasa());
+			if (aterrizado.estaHipotecada() == "false") {
+				switch (aterrizado.obtenerCasas()) {
+				case 0:
+					if (this.tieneMonopoly(aterrizado) == true) {
+						nAlquiler = 2 * alquiler;
+					} else {
+						nAlquiler = alquiler;
+					}
+					break;
+				case 1:
+					nAlquiler = hAlquiler;
+					break;
+				case 2:
+					nAlquiler = hAlquiler * 3;
+					break;
+				case 3:
+					nAlquiler = hAlquiler * 9;
+					break;
+				case 4:
+					nAlquiler = hAlquiler * 18;
+					break;
+				case 5:
+					nAlquiler = hAlquiler * 36;
+					break;
+				}
+			}
+		} else {
+			nAlquiler = alquiler;
+		}
+
+		if (aterrizado.obtenerPropiedad() != this) {
+			this.mCuenta -= nAlquiler;
+			propietario.ponerMCuenta(propietario.obtenerMCuenta() + nAlquiler);
+		}
+
+		return nAlquiler;
+	}
 
 	public int obtenerTiempoCarcel() {
 		return tiempoCarcel;
