@@ -1,4 +1,4 @@
-/*
+
  Monopoly para cliente Inv2AS”
  Proyectos Informáticos II - 2019
  Grupo C (Juan Jose Garcia, Manuel Angel Mateos, Jaime Ojeda)
@@ -26,4 +26,16 @@ public class PropiedadCasilla extends Casilla{
 			this.color = color;
 		
 		}
-}
+
+		public PropiedadCasilla() {} // Constructor en blanco para uso en casos especiales en otras clases.
+
+
+
+		public void ponerPropiedad(Jugador ownership) {
+			this.propiedad = ownership;
+		}
+
+		public Jugador obtenerPropiedad() {
+			return propiedad;
+		}
+ }
