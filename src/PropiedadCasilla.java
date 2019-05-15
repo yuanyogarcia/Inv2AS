@@ -1,5 +1,12 @@
+/*
+ Monopoly para cliente Inv2AS”
+ Proyectos Informáticos II - 2019
+ Grupo C (Juan Jose Garcia, Manuel Angel Mateos, Jaime Ojeda)
+ */
 
 public class PropiedadCasilla extends Casilla{
+
+	
 	private String aquilerUnaCasa;
 	private Jugador propiedad = null;	
 	private String hipotecada = "false";
@@ -8,4 +15,15 @@ public class PropiedadCasilla extends Casilla{
 	private String costeConstruccion;
 	private int casas = 0;
 	private String color;
+	
+		//Se extiende desde casilla atributos únicos 
+		public PropiedadCasilla(char tipo, String name, String color, String price, String costeConstruccion, String rent, String aquilerUnaCasa, int pos){
+			super(tipo, name, pos);
+			this.precio = price;
+			this.costeConstruccion = costeConstruccion;			
+			this.aquilerUnaCasa = aquilerUnaCasa;
+			this.alquiler = alquiler;
+			this.color = color;
+		
+		}
 }
