@@ -1,6 +1,6 @@
-
- Monopoly para cliente Inv2AS”
- Proyectos Informáticos II - 2019
+/*
+ Monopoly para cliente Inv2ASâ€�
+ Proyectos InformÃ¡ticos II - 2019
  Grupo C (Juan Jose Garcia, Manuel Angel Mateos, Jaime Ojeda)
  */
 
@@ -16,7 +16,7 @@ public class PropiedadCasilla extends Casilla{
 	private int casas = 0;
 	private String color;
 	
-		//Se extiende desde casilla atributos únicos 
+		//Se extiende desde casilla atributos Ãºnicos 
 		public PropiedadCasilla(char tipo, String name, String color, String price, String costeConstruccion, String rent, String aquilerUnaCasa, int pos){
 			super(tipo, name, pos);
 			this.precio = price;
