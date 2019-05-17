@@ -16,7 +16,7 @@ public class PropiedadCasilla extends Casilla{
 	private int casas = 0;
 	private String color;
 	
-		//Se extiende desde casilla atributos Ãºnicos 
+		//Se extiende desde casilla atributos 
 		public PropiedadCasilla(char tipo, String name, String color, String price, String costeConstruccion, String rent, String aquilerUnaCasa, int pos){
 			super(tipo, name, pos);
 			this.precio = price;
