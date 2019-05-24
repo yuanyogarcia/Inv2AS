@@ -317,8 +317,9 @@ private int nOpcion;
 	}
 	
 	public void refrescarTodo(){
-		
-
+		//Poner variables a 0	
+		nJugadores = 0;
+		nOpcion = 0;
 	
 	}
 	
