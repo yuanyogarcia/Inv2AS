@@ -237,6 +237,13 @@ public class Jugador {
 
 		return tiene;
 	}
+
+	public void deshipotecar(PropiedadCasilla propiedad) {
+		this.mCuenta -= (Integer.parseInt(propiedad.obtenerPrecio())) / 2;
+		propiedad.ponerHipotecada("false");
+	}
+	
+	
 	public int pagarAlquiler(Jugador propietario, PropiedadCasilla aterrizado) {
 		int alquiler = Integer.parseInt(aterrizado.obtenerAlquiler());
 		int nAlquiler = 0;

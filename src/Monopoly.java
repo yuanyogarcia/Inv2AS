@@ -161,7 +161,31 @@ private int nOpcion;
 			
 	}	
 		}else if(nOpcion == 5){//Hipotecar
-
+			if(
+		
+			cJugador.obtenerPropPropias().size() < 1){
+			  System.out.println("Este jugador no tiene propiedades");
+			  turnoFase1();
+			}
+			
+			else{
+			String[] props = new String[cJugador.obtenerPropPropias().size()];
+			for(int i = 0; i < props.length; i++){ 
+				props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
+			}
+			PropiedadCasilla choice = cJugador.obtenerPropPropias().get(JOptionPane.showOptionDialog (null, "What property would you like to un-mortgage?", "Un-Mortgage", 0, JOptionPane.QUESTION_MESSAGE, null, props, null));
+			if(choice.estaHipotecada() == "false"){
+				JOptionPane.showMessageDialog(null, "This property is already un-hipotecada.", "Aleady un-hipotecada", JOptionPane.INFORMATION_MESSAGE);
+				turnoFase1();
+			}else{
+				cJugador.deshipotecar(choice); //then applies mortgage method to the property
+				JOptionPane.showMessageDialog(null, "Your property has been un-hipotecada.", "Un-hipotecada", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			refrescarTodo();
+			
+			turnoFase1();
+			}
 		}
 		else if(nOpcion == 4){//Deshipotecar
 
