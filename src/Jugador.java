@@ -25,10 +25,12 @@ public class Jugador {
 	public Jugador() {
 	}
 
-	public Jugador(String name) {
+	public Jugador(String name, Casilla nuevoNodoC) {
 		this.nombre = nombre;
 		this.dCuenta = 0;
 		this.mCuenta = 1500;
+		this.nodoActual = nuevoNodoC;
+		propPropias = new ArrayList<PropiedadCasilla>();
 	}
 
 	public void dineroNeto(int valor) {
