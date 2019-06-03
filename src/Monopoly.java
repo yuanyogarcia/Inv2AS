@@ -32,6 +32,16 @@ private int nOpcion;
 	public void nuevoJuego(){	
 		
 
+		Scanner inicio = new Scanner(System.in); 
+		System.out.println("Qué desea hacer: 1. Cargar partida o 2. Crear nueva partida");
+		int nOpcionInicio = inicio.nextInt();
+		
+		if(nOpcionInicio == 1) {
+			cargarPartida();
+		} else {	
+
+
+		
 		Scanner sc = new Scanner(System.in); 
 		System.out.println("Por favor, introduce entre 2 y 8 jugadores");
 		nJugadores = sc.nextInt();
@@ -45,14 +55,14 @@ private int nOpcion;
 		baraja = new Baraja(); 
 		
 		for(int i = 0; i<nJugadores; i++){ //Se anaden los jugadores a la lista de jugadores de la partida
-			listaJugadores.add(i, new Jugador("Jugador"+(i+1)));
+			listaJugadores.add(i, new Jugador("Jugador"+(i+1), tablero.obtenerPrimera()));
 		} 
 		
 		cpIndex = 0;  
 		cJugador = new Jugador(); 
 		cJugador = listaJugadores.get(cpIndex);
 		
-		//Este bloque mantiene el juego en ejecuciÃ³n hasta que uno de los jugadores gana
+		//Este bloque mantiene el juego en ejecucion hasta que uno de los jugadores gana
 		while(gana == false){ 
 			
 			turnoFase1(); 
@@ -63,6 +73,10 @@ private int nOpcion;
 			cpIndex = (cpIndex + 1) % listaJugadores.size();	
 			cJugador = listaJugadores.get(cpIndex);
 		}
+		}
+	}
+	
+	public void cargarPartida( ) {
 		
 	}
 	
@@ -230,7 +244,7 @@ private int nOpcion;
 			landed = landed.obtenerSiguiente();
 		}
 		switch(landed.obtenerTipo()){
-		case 'p':   
+		case 'c':  //Calle  
 			if(((PropiedadCasilla) landed).obtenerPropiedad() == null){
 				String details = "Nombre: " + landed.obtenerNombre() + "\n" + "Tipo: " + ((PropiedadCasilla) landed).obtenerColor() + "\n" + "Alquiler: " + ((PropiedadCasilla) landed).obtenerAlquiler() + "\n" + "Precio: " + ((PropiedadCasilla) landed).obtenerPrecio();
 				System.out.println(details);
@@ -252,21 +266,21 @@ private int nOpcion;
 		
 			break;
 			
-		case 'c':  
+		case 'a':  //Comunidad
 			int accion = baraja.obtenerComunidadCarta().jugarCarta(cJugador, listaJugadores);
 			if(accion == 3){
 				turnoFase2();
 			}else{}
 			refrescarTodo();
 			break;
-		case 'h': 
+		case 'h': //Suerte
 			int accion1 = baraja.obtenerSuerteCarta().jugarCarta(cJugador, listaJugadores);
 			if(accion1 == 3){
 				turnoFase2();
 			}else{}
 			refrescarTodo();
 			break;
-		case 'u':  
+		case 'u':  //Empresa de servicios
 			if(((PropiedadCasilla) landed).obtenerPropiedad() == null){
 				String details = "Nombre: " + landed.obtenerNombre() + "\n" + "Tipo: " + ((PropiedadCasilla) landed).obtenerColor() + "\n" + "Alquiler: " + ((PropiedadCasilla) landed).obtenerAlquiler() + "\n" + "Precio: " + ((PropiedadCasilla) landed).obtenerPrecio();
 				System.out.println("La quieres comprar? Si = 1 No = 0");
@@ -285,7 +299,7 @@ private int nOpcion;
 			}
 			refrescarTodo();
 			break;
-		case 'r':  
+		case 'f':  //Ferrocarril
 			if(((PropiedadCasilla) landed).obtenerPropiedad() == null){
 				String details = "Nombre: " + landed.obtenerNombre() + "\n" + "Tipo: " + ((PropiedadCasilla) landed).obtenerColor() + "\n" + "Alquiler: " + ((PropiedadCasilla) landed).obtenerAlquiler() + "\n" + "Precio: " + ((PropiedadCasilla) landed).obtenerPrecio();
 				System.out.println("La quieres comprar? Si = 1 No = 0");
@@ -305,34 +319,34 @@ private int nOpcion;
 			
 			refrescarTodo();
 			break;
-		case 't': 
-			System.out.println("Has caido en el impuesto al alquiler: paga 200â‚¬ al banco");
+		case 't': //Impuesto al alquiler
+			System.out.println("Has caido en el impuesto al alquiler: paga 200 al banco");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() - 200);
 			refrescarTodo();
 			
 			break;
-		case 'l': 
-			System.out.println( "Has caido en el impuesto de lujo - paga 75â‚¬ al banco");
+		case 'l': //Tasa al lujo
+			System.out.println( "Has caido en la tasa de lujo - paga 75 al banco");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() - 75);
 		
 			refrescarTodo();
 			
 			break;
-		case 'j': 
+		case 'j': //Cárcel (visita)
 			System.out.println("Estas visitando la carcel.");
 			break;
-		case 'g': 
-			System.out.println("Casilla de salida - Ganas 200â‚¬");
+		case 's': //Salida
+			System.out.println("Casilla de salida - Ganas 200");
 			cJugador.ponerMCuenta(cJugador.obtenerMCuenta() + 200);
 			
 			refrescarTodo();
 			
 			break;
-		case 'f':
-			System.out.println("EstÃ¡ en el estacionamiento gratuito - descanse.");
+		case 'k': //Parking gratuito
+			System.out.println("Esta en el estacionamiento gratuito - descanse.");
 			refrescarTodo();
 			break;
-		case 'w':  
+		case 'w':  //A la cárcel
 			System.out.println("Vas a la carcel\n No puedes salir!");
 			cJugador.moverAIdentidad(11);
 			cJugador.ponerTiempoCarcel(3);
