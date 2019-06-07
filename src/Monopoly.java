@@ -183,7 +183,7 @@ private int nOpcion;
 			}
 			
 			else{
-				  System.out.println("Para qué propiedad te gustaría comprar una casa?");
+				  System.out.println("Qué propiedad te gustaría hipotecar?");
 					String[] props = new String[cJugador.obtenerPropPropias().size()];
 					for(int i = 0; i < props.length; i++){  
 						props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
@@ -210,9 +210,44 @@ private int nOpcion;
 			turnoFase1();
 			}
 		}
+		
 		else if(nOpcion == 4){//Deshipotecar
+			if(
+					
+			cJugador.obtenerPropPropias().size() < 1){
+			  System.out.println("Este jugador no tiene propiedades");
+			  turnoFase1();
+			}
+			
+			else{
+				  System.out.println("Qué propiedad te gustaría deshipotecar?");
+					String[] props = new String[cJugador.obtenerPropPropias().size()];
+					for(int i = 0; i < props.length; i++){  
+						props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
+						System.out.println(i + " - " +cJugador.obtenerPropPropias().get(i).obtenerNombre());		
+					}
+					
+					int nEleccion = sc.nextInt();
+					PropiedadCasilla eleccion = null;
+					for(int i = 0; i < props.length; i++){  
+						if (nEleccion == i) {
+							eleccion = cJugador.obtenerPropPropias().get(i);
+						}
+					}
+					
+					boolean hipotecada = eleccion.estaHipotecada();
+					if(hipotecada == false){
+						System.out.println("Ya está deshipotecada!");
+					}else{
+						cJugador.deshipotecar(eleccion);
+						System.out.println("Has deshipotecado la propiedad, tu saldo actual es de " + cJugador.obtenerMCuenta() + " Euros");
+					}
 
+			refrescarTodo();
+			turnoFase1();
+			}
 		}
+		
 		else if(nOpcion == 3){//Comprar casas
 			
 			if(cJugador.obtenerPropPropias().size() < 1){
