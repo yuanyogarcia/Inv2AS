@@ -55,7 +55,7 @@ private int nOpcion;
 		baraja = new Baraja(); 
 		
 		for(int i = 0; i<nJugadores; i++){ //Se anaden los jugadores a la lista de jugadores de la partida
-			listaJugadores.add(i, new Jugador("Jugador"+(i+1), tablero.obtenerPrimera()));
+			listaJugadores.add(i, new Jugador("Jugador "+(i+1), tablero.obtenerPrimera()));
 		} 
 		
 		cpIndex = 0;  
@@ -109,6 +109,8 @@ private int nOpcion;
 		}
 		
 		Scanner sc = new Scanner(System.in); 
+		System.out.println("  ");
+		System.out.println(cJugador.obtenerNombre() + " | " + cJugador.obtenerMCuenta() + " Euros");
 		System.out.println("Escoge una opción: 1. Abandonar partida; 2. Ver propiedades; 3. Comprar casas; 4. Deshipotecar; 5. Hipotecar; 6. Negociar; 7. Tirar dado");
 		nOpcion = sc.nextInt();
 		
@@ -163,8 +165,6 @@ private int nOpcion;
 				System.out.println("La oferta ha sido rechazada\", \"Rechazada!");}
 			else{System.out.println("La oferta ha sido aceptada\", \"Aceptada!");
 			
-			
-			//cJugador.negociar(trader2, give, take, cash);
 			cJugador.negociar(trader2, cash);
 			
 			refrescarTodo(); 
@@ -175,25 +175,39 @@ private int nOpcion;
 			
 	}	
 		}else if(nOpcion == 5){//Hipotecar
-			if(
-		
-			cJugador.obtenerPropPropias().size() < 1){
-			  System.out.println("Este jugador no tiene propiedades");
-			  turnoFase1();
+
+		}
+		else if(nOpcion == 4){//Deshipotecar
+
+		}
+		else if(nOpcion == 3){//Comprar casas
+			
+			if(cJugador.obtenerPropPropias().size() < 1){
+				System.out.println("No tienes propiedades! Es necesario tener al menos una propiedad para comprar casas");					
+			}
+			else{
+				
+		  System.out.println("Para qué propiedad te gustaría comprar una casa?");
+			String[] props = new String[cJugador.obtenerPropPropias().size()];
+			for(int i = 0; i < props.length; i++){  
+				props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
+				System.out.println(cJugador.obtenerPropPropias().get(i).obtenerNombre());		
 			}
 			
-			else{
-			String[] props = new String[cJugador.obtenerPropPropias().size()];
-			for(int i = 0; i < props.length; i++){ 
-				props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
+			int nEleccion = sc.nextInt();
+			PropiedadCasilla eleccion = null;
+			for(int i = 0; i < props.length; i++){  
+				if (nEleccion == i) {
+					eleccion = cJugador.obtenerPropPropias().get(i);
+				}
 			}
-			PropiedadCasilla choice = cJugador.obtenerPropPropias().get(JOptionPane.showOptionDialog (null, "What property would you like to un-mortgage?", "Un-Mortgage", 0, JOptionPane.QUESTION_MESSAGE, null, props, null));
-			if(choice.estaHipotecada() == "false"){
-				JOptionPane.showMessageDialog(null, "This property is already un-hipotecada.", "Aleady un-hipotecada", JOptionPane.INFORMATION_MESSAGE);
-				turnoFase1();
+			
+			
+			boolean monopoly = cJugador.tieneMonopoly(eleccion);
+			if(monopoly == true){
+				cJugador.comprarCasa(eleccion);
 			}else{
-				cJugador.deshipotecar(choice); //then applies mortgage method to the property
-				JOptionPane.showMessageDialog(null, "Your property has been un-hipotecada.", "Un-hipotecada", JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Todavía no tienes Monopoly!");
 			}
 			
 			refrescarTodo();
@@ -201,15 +215,34 @@ private int nOpcion;
 			turnoFase1();
 			}
 		}
-		else if(nOpcion == 4){//Deshipotecar
-
-		}
-		else if(nOpcion == 3){//Comprar casas
-
-		}
 		else if(nOpcion == 2){//Ver propiedades
+			String[] nombres = new String[listaJugadores.size()];
+			for(int i = 0; i < nombres.length; i++){ 
+				nombres[i] = listaJugadores.get(i).obtenerNombre(); 
+			}
+			
+			System.out.println("Las propiedades de qué jugador te gustaría ver?");
+			int nJugador = sc.nextInt();
+			nJugador = nJugador - 1;
+			
+			Jugador negociador2 = listaJugadores.get(nJugador);
+			
+			if(negociador2.obtenerPropPropias().size() < 1){ 
+				System.out.println("Este jugador no tiene propiedades!");
+				turnoFase1(); 
+			}
+			else{
+			String[] props = new String[negociador2.obtenerPropPropias().size()];
+			for(int i = 0; i < props.length; i++){ 
+				
+				
+				String details = "Nombre: " + negociador2.obtenerPropPropias().get(i).obtenerNombre() + "\n" + "Tipo: " + negociador2.obtenerPropPropias().get(i).obtenerColor() + "\n" + "Alquiler: " + negociador2.obtenerPropPropias().get(i).obtenerAlquiler() + "\n" + "Precio: " + negociador2.obtenerPropPropias().get(i).obtenerPrecio();
+				System.out.println(details);
+				System.out.println(" ");
+			}
 
-	
+			turnoFase1();
+			}
 		}else if (nOpcion == 1){//Abandonar
 			System.out.println("Has abandonado la partida!");
 			System.exit(0); 
@@ -250,9 +283,9 @@ private int nOpcion;
 				System.out.println(details);
 				System.out.println("Aceptas esta oferta Si = 1 No = 0");
 				int yesno = sc.nextInt();
-				if(yesno == 0){
+				if(yesno == 1){
 						cJugador.comprar((PropiedadCasilla) landed);
-						System.out.println("Ahora la tienes " + landed.obtenerNombre());}
+						System.out.println("Ahora la tienes " + landed.obtenerNombre() + "," + " tu saldo actual es de "+ cJugador.obtenerMCuenta() + " Euros");}
 					else{}
 					
 			}else if(((PropiedadCasilla) landed).obtenerPropiedad() == cJugador){
