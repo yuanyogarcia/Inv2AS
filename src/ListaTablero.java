@@ -66,29 +66,29 @@ private Casilla primero;
 	  				Casilla nPNodo5 = new SuerteCasilla('h', suerteNombre, i);
 	  				anadirUltima(nPNodo5);
 	  				break;
-//	  			case 'j': //Cárcel
-//	  				String nombreCarcel = boardScanner.nextLine();
-//	  				Casilla nPNodo6 = new CarcelCasilla('j', nombreCarcel, i);
-//	  				anadirUltima(nPNodo6);
-//	  				break;
-//	  			case 'u': //Servicios
-//	  				String nombreServicios = boardScanner.nextLine();
-//	  				String colorServicios = boardScanner.nextLine();
-//	  				String precioServicios = boardScanner.nextLine();
-//	  				String alquilerServicios = boardScanner.nextLine();
-//	  				Casilla nPNodo7 = new UtilitySpace('u', nombreServicios, colorServicios, precioServicios, null, alquilerServicios, null, i);
-//	  				anadirUltima(nPNodo7);
-//	  				break;
-//	  			case 'k': //Parking Gratis
-//	  				String nombreParking = boardScanner.nextLine();
-//	  				Casilla nPNodo8 = new FreeSpace('f', nombreParking, i);
-//	  				anadirUltima(nPNodo8);
-//	  				break;
-//	  			case 'w': //A la cárcel
-//	  				String nombreAlaCarcel = boardScanner.nextLine();
-//	  				Casilla nPNodo9 = new ToJailSpace('w', nombreAlaCarcel, i);
-//	  				anadirUltima(nPNodo9);
-//	  				break;
+	  			case 'j': //Cárcel
+	  				String nombreCarcel = boardScanner.nextLine();
+	  				Casilla nPNodo6 = new CarcelCasilla('j', nombreCarcel, i);
+	  				anadirUltima(nPNodo6);
+	  				break;
+	  			case 'u': //Servicios
+	  				String nombreServicios = boardScanner.nextLine();
+	  				String colorServicios = boardScanner.nextLine();
+	  				String precioServicios = boardScanner.nextLine();
+	  				String alquilerServicios = boardScanner.nextLine();
+	  				Casilla nPNodo7 = new ServiciosCasilla('u', nombreServicios, colorServicios, precioServicios, null, alquilerServicios, null, i);
+	  				anadirUltima(nPNodo7);
+	  				break;
+	  			case 'k': //Parking Gratis
+	  				String nombreParking = boardScanner.nextLine();
+	  				Casilla nPNodo8 = new ParkingGratisCasilla('f', nombreParking, i);
+	  				anadirUltima(nPNodo8);
+	  				break;
+	  			case 'w': //A la cárcel
+	  				String nombreAlaCarcel = boardScanner.nextLine();
+	  				Casilla nPNodo9 = new AlaCarcelCasilla('w', nombreAlaCarcel, i);
+	  				anadirUltima(nPNodo9);
+	  				break;
 	  			default:
 	  				break;
 	  				}
