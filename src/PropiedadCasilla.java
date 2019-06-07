@@ -9,7 +9,7 @@ public class PropiedadCasilla extends Casilla{
 	
 	private String aquilerUnaCasa;
 	private Jugador propiedad = null;	
-	private String hipotecada = "false";
+	private boolean hipotecada = false;
 	private String alquiler;
 	private String precio;
 	private String costeConstruccion;
@@ -38,11 +38,11 @@ public class PropiedadCasilla extends Casilla{
 			return propiedad;
 		}
 
-		public void ponerHipotecada(String hipotecada) {
+		public void ponerHipotecada(boolean hipotecada) {
 			this.hipotecada = hipotecada;
 		}
 
-		public String estaHipotecada() {
+		public boolean estaHipotecada() {
 			return hipotecada;
 		}
 

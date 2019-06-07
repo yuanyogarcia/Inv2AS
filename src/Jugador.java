@@ -25,7 +25,7 @@ public class Jugador {
 	public Jugador() {
 	}
 
-	public Jugador(String name, Casilla nuevoNodoC) {
+	public Jugador(String nombre, Casilla nuevoNodoC) {
 		this.nombre = nombre;
 		this.dCuenta = 0;
 		this.mCuenta = 1500;
@@ -154,6 +154,15 @@ public class Jugador {
 		this.propPropias.add(landed);
 	}	
 	
+    public void comprarCasa(PropiedadCasilla aterrizado){
+        if(aterrizado.obtenerCasas() < 5){                 
+        	aterrizado.ponerCasas(aterrizado.obtenerCasas() + 1);
+        this.mCuenta -= Integer.parseInt(aterrizado.obtenerCosteConstruccion());
+        System.out.println("Casa comprada!");}
+        else{
+        System.out.println("La propiedad ya tiene demasiadas casas!");}
+    }
+	
 	public boolean tieneMonopoly(PropiedadCasilla aterrizado) {
 		boolean tiene;
 		String colorTemp = aterrizado.obtenerColor();
@@ -241,13 +250,13 @@ public class Jugador {
 	}
 	
 	public void hipotecar(PropiedadCasilla propiedad) {
-		propiedad.ponerHipotecada("true");
+		propiedad.ponerHipotecada(true);
 		this.mCuenta += (Integer.parseInt(propiedad.obtenerPrecio())) / 2;
 	}
 
 	public void deshipotecar(PropiedadCasilla propiedad) {
 		this.mCuenta -= (Integer.parseInt(propiedad.obtenerPrecio())) / 2;
-		propiedad.ponerHipotecada("false");
+		propiedad.ponerHipotecada(false);
 	}
 	
 	
@@ -257,7 +266,7 @@ public class Jugador {
 
 		if (aterrizado.obtenerTipo() == 'p') {
 			int hAlquiler = Integer.parseInt(aterrizado.obtenerAquilerUnaCasa());
-			if (aterrizado.estaHipotecada() == "false") {
+			if (aterrizado.estaHipotecada() == false) {
 				switch (aterrizado.obtenerCasas()) {
 				case 0:
 					if (this.tieneMonopoly(aterrizado) == true) {

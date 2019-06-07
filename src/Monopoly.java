@@ -175,7 +175,40 @@ private int nOpcion;
 			
 	}	
 		}else if(nOpcion == 5){//Hipotecar
+			if(
+					
+			cJugador.obtenerPropPropias().size() < 1){
+			  System.out.println("Este jugador no tiene propiedades");
+			  turnoFase1();
+			}
+			
+			else{
+				  System.out.println("Para qué propiedad te gustaría comprar una casa?");
+					String[] props = new String[cJugador.obtenerPropPropias().size()];
+					for(int i = 0; i < props.length; i++){  
+						props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
+						System.out.println(i + " - " +cJugador.obtenerPropPropias().get(i).obtenerNombre());		
+					}
+					
+					int nEleccion = sc.nextInt();
+					PropiedadCasilla eleccion = null;
+					for(int i = 0; i < props.length; i++){  
+						if (nEleccion == i) {
+							eleccion = cJugador.obtenerPropPropias().get(i);
+						}
+					}
+					
+					boolean hipotecada = eleccion.estaHipotecada();
+					if(hipotecada == true){
+						System.out.println("Ya está hipotecada!");
+					}else{
+						cJugador.hipotecar(eleccion);
+						System.out.println("Has hipotecado la propiedad, tu saldo actual es de " + cJugador.obtenerMCuenta() + " Euros");
+					}
 
+			refrescarTodo();
+			turnoFase1();
+			}
 		}
 		else if(nOpcion == 4){//Deshipotecar
 
