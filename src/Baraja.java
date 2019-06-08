@@ -48,15 +48,15 @@ public class Baraja {
 	}
 	
 	public Carta obtenerSuerteCarta(){
-		Carta newChance = suerte.removeFirst();	//Volver carta de oportunidad desde arriba, y se suma a la parte inferior
-		suerte.addLast(newChance);
-		return newChance;
+		Carta nuevaSuerte = suerte.removeFirst();	//Volver carta de oportunidad desde arriba, y se suma a la parte inferior
+		suerte.addLast(nuevaSuerte);
+		return nuevaSuerte;
 	}
 	
 	public Carta obtenerComunidadCarta(){
-		Carta newCommunity = comunidad.removeFirst();	//devuelve la carta de la comunidad desde arriba, y también la agrega a la parte inferior (para que las cartas no se agoten)
-		suerte.addLast(newCommunity);
-		return newCommunity;
+		Carta nuevaComunidad = comunidad.removeFirst();	//devuelve la carta de la comunidad desde arriba, y también la agrega a la parte inferior (para que las cartas no se agoten)
+		suerte.addLast(nuevaComunidad);
+		return nuevaComunidad;
 	}
 	
 }
