@@ -9,6 +9,11 @@ import java.awt.Color;
 import java.util.*;
 import javax.swing.*;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 
 public class Monopoly {
 
@@ -24,12 +29,12 @@ private int nOpcion;
 
 	public Monopoly(){}
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		Monopoly juego = new Monopoly();
 		juego.nuevoJuego();
 	}
 
-	public void nuevoJuego(){	
+	public void nuevoJuego() throws IOException{	
 		
 
 		Scanner inicio = new Scanner(System.in); 
@@ -78,6 +83,48 @@ private int nOpcion;
 	
 	public void cargarPartida( ) {
 		
+		String ficheroCSV = "/Users/jojedago/partida.csv";
+        BufferedReader br = null;
+        String linea = "";
+        String CSVseparadoCon = ",";
+		listaJugadores = new ArrayList<Jugador>(); 
+		tablero = new ListaTablero();
+		baraja = new Baraja(); 
+		int iIndex = 0;
+        try {
+
+            br = new BufferedReader(new FileReader(ficheroCSV));
+            while ((linea = br.readLine()) != null) {
+
+                // use comma as separator
+                String[] sJugador = linea.split(CSVseparadoCon);
+                
+                //Creamos instancia del jugador a partir del nombre y de la casilla en que se quedó
+                cJugador = new Jugador(sJugador[0], tablero.obtenerPrimera());
+              //|Jugador|RCuenta|MCuenta|DCuenta|JFCuenta|NombreCasilla|PosicionCasilla|JugadorTurno |
+                cJugador.ponerRCuenta(Integer.parseInt(sJugador[1]));
+                cJugador.ponerMCuenta(Integer.parseInt(sJugador[2]));
+                cJugador.ponerDCuenta(Integer.parseInt(sJugador[3]));
+                cJugador.ponerjfCuenta(Integer.parseInt(sJugador[4]));
+                cJugador.mover();
+                System.out.println(sJugador[0] + " se encuentra en " + cJugador.obtenerCNodo().obtenerNombre());
+                listaJugadores.add(iIndex, cJugador);
+                iIndex++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 	}
 	
 	public void ultimoEstado(){
@@ -95,7 +142,7 @@ private int nOpcion;
 	// - Deshipotecar
 	// - Negociar
 	// - Tirar dado
-	public void turnoFase1(){
+	public void turnoFase1() throws IOException{
 		try {Thread.sleep(400);} catch (InterruptedException e) {e.printStackTrace();}
 	
 		if(cJugador.obtenerTiempoCarcel()>0){
@@ -110,11 +157,35 @@ private int nOpcion;
 		
 		Scanner sc = new Scanner(System.in); 
 		System.out.println("  ");
-		System.out.println(cJugador.obtenerNombre() + " | " + cJugador.obtenerMCuenta() + " Euros");
-		System.out.println("Escoge una opción: 1. Abandonar partida; 2. Ver propiedades; 3. Comprar casas; 4. Deshipotecar; 5. Hipotecar; 6. Negociar; 7. Tirar dado");
+		System.out.println(cJugador.obtenerNombre() + " | Posición: " + cJugador.obtenerCNodo().obtenerNombre() + " | Dinero en cuenta: " + cJugador.obtenerMCuenta() + " Euros");
+		System.out.println("Escoge una opción: 1. Abandonar partida; 2. Ver propiedades; 3. Comprar casas; 4. Deshipotecar; 5. Hipotecar; 6. Negociar; 7. Tirar dado; 8. Exportar Partida");
 		nOpcion = sc.nextInt();
 		
-		if(nOpcion == 7){ //Tirar dado
+		
+		if(nOpcion == 8) { //Exportar partida
+		
+		    Jugador jugador;
+	        String ficheroCSV = "/Users/jojedago/partida.csv";
+	        FileWriter escritorFichero = new FileWriter(ficheroCSV);
+			for(int i = 0; i< listaJugadores.size(); i++){ 
+				jugador = listaJugadores.get(i);
+				
+	
+		        //Se exporta un fichero CSV con el siguiente formato
+		        //|Jugador|RCuenta|MCuenta|DCuenta|JFCuenta|NombreCasilla|PosicionCasilla|JugadorTurno |
+				int rcuenta = jugador.obtenerRCuenta();
+		        LectorCSV.escribirEntrada(escritorFichero, Arrays.asList(jugador.obtenerNombre(), Integer.toString(jugador.obtenerRCuenta()), Integer.toString(jugador.obtenerMCuenta()), 
+		        Integer.toString(jugador.obtenerDCuenta()), Integer.toString(jugador.obtenerjfCuenta()), jugador.obtenerCNodo().obtenerNombre(), 
+		        Integer.toString(jugador.obtenerCNodo().obtenerPosicion()), cJugador.obtenerNombre() ));
+			} 
+			
+	        escritorFichero.flush();
+	        escritorFichero.close();
+	        System.out.println("Partida exportada al directorio " + ficheroCSV);
+	        
+	        turnoFase1();
+			
+	    }else if(nOpcion == 7){ //Tirar dado
 			cJugador.tirar(); 
 			System.out.println("Has sacado: " + cJugador.obtenerRCuenta());
 			cJugador.mover();
@@ -130,7 +201,11 @@ private int nOpcion;
 				names[i] = listaJugadores.get(i).obtenerNombre(); //Realiza una matriz de nombres 
 			}
 			System.out.println("Con quien quieres negociar?");
-		    Jugador trader2 = listaJugadores.get(sc.nextInt());
+			
+			//listaJugadores
+			int nJugador = sc.nextInt();
+			nJugador = nJugador - 1;
+		    Jugador trader2 = listaJugadores.get(nJugador);
 
 			if(trader2 == cJugador){turnoFase1();} //si te seleccionas a ti mismo vuelves al inicio
 			
@@ -140,32 +215,38 @@ private int nOpcion;
 			}
 			else{
 			String[] t1props = new String[cJugador.obtenerPropPropias().size()];
+			
+			if (t1props.length >= 1) {
+			System.out.println(trader2.obtenerNombre() + ", que propiedad quieres ofrecer?");
 			for(int i = 0; i < t1props.length; i++){ 
 				t1props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
 			}			///Que propiedad queremos ofrecer
+			}
 			
-			
-			PropiedadCasilla give = cJugador.obtenerPropPropias().get(JOptionPane.showOptionDialog (null, "Que propiedad quiere ofrecer?", "Negociar", 0, JOptionPane.QUESTION_MESSAGE, null, t1props, null));
+			//PropiedadCasilla give = cJugador.obtenerPropPropias().get(JOptionPane.showOptionDialog (null, "Que propiedad quieres ofrecer?", "Negociar", 0, JOptionPane.QUESTION_MESSAGE, null, t1props, null));
 			
 			String[] t2props = new String[trader2.obtenerPropPropias().size()];
 			for(int i = 0; i < t2props.length; i++){
 				t2props[i] = trader2.obtenerPropPropias().get(i).obtenerNombre();
-				System.out.println(t2props[i]);
+				System.out.println("("+ i + ") " + t2props[i]);
 			}		//Pregunta que propiedad del jugador seleccionado quieres
-			System.out.println("Que propiedad quieres comprar?");
-			PropiedadCasilla take = trader2.obtenerPropPropias().get(sc.nextInt());
+			System.out.println(cJugador.obtenerNombre() + ", " + "que propiedad quieres comprar?");
+			
+			int nProp = sc.nextInt();
+			
+			PropiedadCasilla eleccion = trader2.obtenerPropPropias().get(nProp);
 		
-			System.out.println("Cuanto dinero te gustaria ofrecer?");
-			int cash = sc.nextInt();
+			System.out.println(cJugador.obtenerNombre() + ", cuanto dinero te gustaria ofrecer?");
+			int oferta = sc.nextInt();
 			
 			String[] yesnoOp = {"Si", "No"};  
-			System.out.println("Aceptas esta oferta Si = 1 No = 0");
+			System.out.println(trader2.obtenerNombre() + ", " + "aceptas esta oferta? Si = 0 No = 1");
 			int yesno = sc.nextInt();
 			if(yesno == 1){
 				System.out.println("La oferta ha sido rechazada\", \"Rechazada!");}
 			else{System.out.println("La oferta ha sido aceptada\", \"Aceptada!");
 			
-			cJugador.negociar(trader2, cash);
+			cJugador.negociar(trader2, oferta);
 			
 			refrescarTodo(); 
 			}
@@ -259,7 +340,7 @@ private int nOpcion;
 			String[] props = new String[cJugador.obtenerPropPropias().size()];
 			for(int i = 0; i < props.length; i++){  
 				props[i] = cJugador.obtenerPropPropias().get(i).obtenerNombre();
-				System.out.println(cJugador.obtenerPropPropias().get(i).obtenerNombre());		
+				System.out.println("(" + i + ") " + cJugador.obtenerPropPropias().get(i).obtenerNombre());		
 			}
 			
 			int nEleccion = sc.nextInt();
@@ -270,14 +351,14 @@ private int nOpcion;
 				}
 			}
 			
-			
+			if (eleccion != null) {
 			boolean monopoly = cJugador.tieneMonopoly(eleccion);
 			if(monopoly == true){
 				cJugador.comprarCasa(eleccion);
 			}else{
 				System.out.println("Todavía no tienes Monopoly!");
 			}
-			
+			}
 			refrescarTodo();
 			
 			turnoFase1();
@@ -339,7 +420,7 @@ private int nOpcion;
 			return;
 		}
 		
-		int reference = cJugador.obtenerCNode().obtenerPosicion();
+		int reference = cJugador.obtenerCNodo().obtenerPosicion();
 		Casilla landed = tablero.obtenerPrimera();
 		while(landed.obtenerPosicion() != reference){ 	
 			landed = landed.obtenerSiguiente();

@@ -20,7 +20,7 @@ public class Casilla {
   	}
 
 	public void ponerPosicion(int pos) {
-	  this.pos = pos;
+	//  this.pos = pos;
   	}
   	public int obtenerPosicion() {
   		return pos;

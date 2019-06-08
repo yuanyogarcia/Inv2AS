@@ -9,17 +9,17 @@ import javax.swing.JOptionPane;
 
 public class Jugador {
 
-	private String nombre;
-	private int rCuenta;
-	private int mCuenta;
-	private int dCuenta;
-	private int jfCuenta;
+	public String nombre;
+	public int rCuenta;
+	public int mCuenta;
+	public int dCuenta;
+	public int jfCuenta;
 	private int nDado1, dado2;
 	private boolean enDado2 = false;
 	private int dadoTotal;
-	private Casilla nodoActual = new Casilla();
+	public Casilla nodoActual = new Casilla();
 	private ArrayList<PropiedadCasilla> propPropias;
-	private int tiempoCarcel;
+	public int tiempoCarcel;
 
 	// Objeto que representa cada jugador en el juego
 	public Jugador() {
@@ -42,7 +42,8 @@ public class Jugador {
 	public void mover() {
 
 		for (int j = 0; j < this.obtenerRCuenta(); j++) {
-			this.ponerNodoActual(this.obtenerCNode().obtenerSiguiente());
+			this.ponerNodoActual(this.obtenerCNodo().obtenerSiguiente());
+			int position = nodoActual.obtenerPosicion();
 			if (nodoActual.obtenerPosicion() == 1) {
 				this.ponerMCuenta(this.obtenerMCuenta() + 200);
 			}
@@ -308,7 +309,7 @@ public class Jugador {
 		return tiempoCarcel;
 	}
 
-	public Casilla obtenerCNode() {
+	public Casilla obtenerCNodo() {
 		return nodoActual;
 	}
 	

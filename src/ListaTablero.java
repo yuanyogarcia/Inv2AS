@@ -58,7 +58,7 @@ private Casilla primero;
 	  				String colorFerrocarril = boardScanner.nextLine();
 	  				String precioFerrocarril = boardScanner.nextLine();
 	  				String alquilerFerrocarril = boardScanner.nextLine();
-	  				Casilla nPNodo4 = new FerrocarrilCasilla('r', nombreFerrocarril, colorFerrocarril, precioFerrocarril, null, alquilerFerrocarril, null, i);
+	  				Casilla nPNodo4 = new FerrocarrilCasilla('f', nombreFerrocarril, colorFerrocarril, precioFerrocarril, null, alquilerFerrocarril, null, i);
 	  				anadirUltima(nPNodo4);
 	  				break;
 	  			case 'h': //Suerte
@@ -81,7 +81,7 @@ private Casilla primero;
 	  				break;
 	  			case 'k': //Parking Gratis
 	  				String nombreParking = boardScanner.nextLine();
-	  				Casilla nPNodo8 = new ParkingGratisCasilla('f', nombreParking, i);
+	  				Casilla nPNodo8 = new ParkingGratisCasilla('k', nombreParking, i);
 	  				anadirUltima(nPNodo8);
 	  				break;
 	  			case 'w': //A la cárcel

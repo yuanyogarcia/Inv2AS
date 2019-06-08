@@ -17,7 +17,7 @@ public class PropiedadCasilla extends Casilla{
 	private String color;
 	
 		//Extends from Casilla, anadiring attributes unique to buyable spaces
-		public PropiedadCasilla(char tipo, String name, String color, String price, String costeConstruccion, String rent, String aquilerUnaCasa, int pos){
+		public PropiedadCasilla(char tipo, String name, String color, String price, String costeConstruccion, String alquiler, String aquilerUnaCasa, int pos){
 			super(tipo, name, pos);
 			this.precio = price;
 			this.costeConstruccion = costeConstruccion;			
