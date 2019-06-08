@@ -1,0 +1,125 @@
+h
+Pasar por Salida (Ganas 200 Euros)
+3
+0
+1
+h
+Ir a Ronda de San Pedro.
+3
+0
+25
+h
+Ir a Calle de Muntaner, si pasad por Salida Ganas 200 Euros
+3
+0
+12
+h
+Banco paga dividendo de 50 Euros
+1
+50
+0
+h
+Sales libre de la carcel, puedes mantener esta carta o negociar con ella
+4
+0
+0
+h
+Multa de velocidad 50 Euros
+1
+15
+0
+h
+Ir al Paseo de Gracia
+3
+0
+0
+h
+Has sido elegido presidente del tablero, paga 50 Euros a cada jugador
+2
+-50
+0
+h
+Has ganado una competicion de crucigramas, recibes 100 Euros
+1
+100
+0
+h
+Tu prestamo a la construccion fructifica, recibes 150 Euros
+1
+150
+0
+c
+Pasar por Salida (Ganas 200 Euros)
+3
+0
+1
+c
+Error del banco a tu favor, ganas 75 Euros
+1
+75
+0
+c
+Factura del medico 500 Euros
+1
+-50
+0
+c
+Sales libre de la carcel, puedes mantener esta carta
+4
+0
+0
+c
+A la carcel sin pasar por la Salida (sin 200 Euros) 
+3
+0
+11
+c
+Es tu cumpleanos! Cada jugador te da 10 Euros
+2
+10
+0
+c
+Devolucion de impuestos, recibes 40 Euros
+1
+40
+0
+c
+El Seguro de vida expira, recibes 100 Euros
+1
+100
+0
+c
+Factura del hospital, 100 Euros
+1
+-100
+0
+c
+Factura de la escuela, 50 Euros
+1
+-50
+0
+c
+Recibes 25 Euros en concepto de consultoria
+1
+25
+0
+c
+Has ganado el concurso de belleza, recibes 10 Euros
+1
+10
+0
+c
+Heredas 100 Euros
+1
+100
+0
+c
+Por la venta de stock recibes 50 Euros
+1
+50
+0
+c
+Recibes 100 Euros del fondo de vacaciones
+1
+100
+0
