@@ -28,8 +28,40 @@ public class Carta
 	public int jugarCarta(Jugador jugador, ArrayList<Jugador> jugadores)
 	{
 		
-		String title;
+		String titulo;
 		
+		if(this.tipo == 'c'){
+			titulo = "Caja de la comunidad!";		
+		}
+		else{titulo = "Suerte!";}
+			
+		System.out.println("***CARTA***");
+		System.out.println(titulo);
+		System.out.println(mensaje);
+		
+		//promulga la tarjeta, las cuales tienen tipos de acción de:
+		// 1 (ganancia / pérdida de dinero)
+		// 2 (ganancia / pérdida de dinero que involucran a todos los jugadores)
+		// 3 (movimiento a una posición)
+		// 4 (una tarjeta para salir de la cárcel)
+		switch (accion)
+		{
+	        case 1:
+	        	jugador.dineroNeto(valor);
+	        	break;						
+	        case 2:
+	        	jugador.dineroNeto(jugadores.size()*valor);
+	        	for(Jugador j: jugadores)
+	        		j.dineroNeto(-valor);
+	        	break;
+	        case 3:
+	        	jugador.moverAIdentidad(pos);
+	        	break;
+	        case 4:
+	        	jugador.ponerjfCuenta(jugador.obtenerjfCuenta()+1);
+	        default:
+	       		break;		
+		}
 		
 		return this.accion;
 	}
